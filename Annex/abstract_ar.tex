@@ -1,0 +1,23 @@
+\documentclass[11pt,a4paper]{report}
+\usepackage{arabtex}
+\usepackage[utf8]{inputenc}
+%\usepackage[LFE,LAE]{fontenc}
+\usepackage[arabic]{babel}
+\begin{document}
+\thispagestyle{empty}
+
+\begin{otherlanguage}{arabic}
+يمثل انخفاض الرؤية تحديا هاما للمتنبئين بالطقس، بالنظر إلى تأثيره السلبي على حركة السير وحركة الملاحة الجوية والبحرية. في الواقع أصبحت الخسائر البشرية والمالية التي تعزى إلى انخفاض الرؤية جد وخيمة، وبالتالي من أجل مواجهة هذا العجز في مجال التنبؤ العددي بالطقس تم تقييم تقنيات \textLR{Dtatamining} في التنبؤ بالرؤية  في العديد من الدراسات العلمية. إلا أن نتائج النمادج المطورة تختلف من دراسة لأخرى بسبب تنوع الأدوات \textLR{Datamining} المفتوحة المصدر المستعملة من جهة، وتنوع الخوارزميات \textLR{Datamining} المستخدمة من جهة أخرى.
+\\
+
+لذلك فالهدف من دراستنا هو دراسة حساسية قدرة نماذج  \textLR{Datamining} المطورة للأداة من جهة وللخوارزمية المستعملة من جهة أخرى، تناول هذا البحث حالة \textLR{Régression} في تنبؤ الرؤية انطلاقا من مخرجات نمودج التنبؤ العددي \textLR{AROME}.
+
+ لتحقيق هذا الهدف استخدمنا نوعين من الخوارزميات، تلك القائمة على \textLR{Ensemble methods} بما فيها \textLR{Random Forest}، \textLR{Gradient Boosting Machine}، \textLR{eXtreme Gradient Boosting} وغيرها القائمة على مبدأ الشبكات العصبية أو ما يطلق عليه بالتعلم العميق \textLR{Deep Learning}. هذه التقنيات تم تقييمها في مختلف المنصات المفتوحة المصدر \textLR{Scikit-learn}، \textLR{H2O}، \textLR{WEKA}، \textLR{Tensorflow}، \textLR{Keras}. \\
+بالإضافة إلى ذلك ، تم استخدام في هذا العمل قاعدة بيانات تغطي بيانات لحظية لمدة \textLR{3} سنوات كنتيجة للمعالجة المسبقة لمخرجات نموذج التنبؤ العددي\textLR{AROME}  وبيانات مرصودة بالملاحظة.تم تقسيم هذه البيانات إلى \textLR{70\%} للتعلم و \textLR{30\%} للإختبار مع الحرص على تمثيلية كل شهر، كل ساعة، ومختلف مجالات الرؤية لجميع المحطات.
+\\
+
+تظهر نتائج تقييم حساسية النماذج التي تم تطويرها للأداة والخوارزمية المستخدمة أن أداء النماذج المستندة على \textLR{Ensemble methods} هو الأفضل مهما كانت الأداة المستخدمة باستثناء \textLR{Keras} حيث تم استخدامه للتعلم العميق فقط. من ناحية أخرى ، يتم عرض خوارزمية \textLR{Random Forest} كأفضل مقدر للرؤية بعد ضبط إعدادات \textLR{hyperparameter} لمنصتي \textLR{WEKA} و \textLR{Scikit-lern}. ومع ذلك، \textLR{Gradient Boosting Machine} تميزت بأنها أفضل مقدر لمنصة \textLR{H2O}. نسب الأخطاء المسجلة متشابهة بين مختلف المنصات، إذ نجد أن متوسط الأخطاء التربيعية هو \textLR{1933}م و \textLR{1942} م و \textLR{1945} م على التوالي ل \textLR{Gradient Boosting} في \textLR{H2O} و \textLR{Random Forest} لمنصتي \textLR{Scikit-learn} و \textLR{WEKA}.\
+
+\end{otherlanguage}
+
+\end{document}

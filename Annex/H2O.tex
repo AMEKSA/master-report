@@ -1,0 +1,724 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+ \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+    % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+    % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Les algorithmes sous H2O using R}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+\begin{Verbatim}[commandchars=\\\{\}]
+ \PY{c+c1}{\PYZsh{} Script:}
+ \PY{c+c1}{\PYZsh{}   des algorithmes Random Forest (RF) Gradient Boosting (GBM),}
+ \PY{c+c1}{\PYZsh{}   extrem Gradient Boosting (XGB) et Deep learning (DL) Sous H2O avec R}
+ 
+ \PY{c+c1}{\PYZsh{} Description:}
+ \PY{c+c1}{\PYZsh{} Ce script est dédié au développement des algorithme RF, GBM, XGB et DL,}
+ \PY{c+c1}{\PYZsh{} le développement de ces algorithme suit étapes suivant:}
+ \PY{c+c1}{\PYZsh{}  1\PYZhy{} Importation du Paquet H2O et le démarré}
+ \PY{c+c1}{\PYZsh{}  2\PYZhy{} Importation des données et spécification des variables }
+ \PY{c+c1}{\PYZsh{}     indépendants et dépendant;}
+ \PY{c+c1}{\PYZsh{}  3\PYZhy{} Création de la fonction d\PYZsq{}évaluation }
+ \PY{c+c1}{\PYZsh{}      (Pour calculer les indice de pérformance);}
+ \PY{c+c1}{\PYZsh{}  4\PYZhy{} Développement et l\PYZsq{}évaluation des 4 algorithmes:}
+ \PY{c+c1}{\PYZsh{}      4\PYZhy{}1) Avec les paramètres par défaut;}
+ \PY{c+c1}{\PYZsh{}      4\PYZhy{}2) Avec les paramètres optimisé par RandomDiscrit }
+ \PY{c+c1}{\PYZsh{}    (Random Searche);}
+ \PY{c+c1}{\PYZsh{}      4\PYZhy{}3) Avec les paramètres optimisé par Cartesien }
+ \PY{c+c1}{\PYZsh{}    (Grid Search).}
+ 
+ \PY{c+c1}{\PYZsh{} Version:}
+ \PY{c+c1}{\PYZsh{}     Mohammed AMEKSA:Juin 2019Script Original}
+\end{Verbatim}
+
+
+    \hypertarget{importer-la-bibliothuxe8que-h2o-et-le-duxe9marruxe9}{%
+\setcounter{section}{2}
+\subsection{Importer la bibliothèque H2O et le
+démarré}\label{importer-la-bibliothuxe8que-h2o-et-le-duxe9marruxe9}}
+
+\hypertarget{puis-limportation-des-donnuxe9es}{%
+\subsection{Puis l'importation des
+données}\label{puis-limportation-des-donnuxe9es}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ \PY{n+nf}{library}\PY{p}{(}\PY{n}{h2o}\PY{p}{)}
+ \PY{c+c1}{\PYZsh{} Démarage de h2o}
+ \PY{n+nf}{h2o.init}\PY{p}{(}
+   \PY{n}{ip} \PY{o}{=} \PY{l+s}{\PYZsq{}}\PY{l+s}{localhost\PYZsq{}}\PY{p}{,} \PY{c+c1}{\PYZsh{} addresse local du machine}
+   \PY{n}{port} \PY{o}{=} \PY{l+m}{54321}\PY{p}{,}
+   \PY{n}{nthreads} \PY{o}{=} \PY{l+m}{\PYZhy{}1}\PY{p}{,}      \PY{c+c1}{\PYZsh{}\PYZsh{} \PYZhy{}1: pour l\PYZsq{}utilisation de tous les threads}
+   \PY{n}{max\PYZus{}mem\PYZus{}size} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{8g\PYZdq{}} \PY{c+c1}{\PYZsh{}\PYZsh{} Spécification de la taille mémoire H2O cloud}
+ \PY{p}{)}
+ \PY{n+nf}{h2o.removeAll}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} Au cas où le cluster fonctionnait déjà}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ \PY{c+c1}{\PYZsh{}\PYZsh{}importer les deux fichiers de données}
+ \PY{c+c1}{\PYZsh{}spécifier le chemine ou se trouvent }
+ \PY{n}{meteo\PYZus{}train\PYZus{}path} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Stage DMN/Train\PYZhy{}Equil\PYZhy{}Lon\PYZhy{}Lat\PYZhy{}Hour\PYZhy{}Month\PYZhy{}RedVisi.csv\PYZdq{}}
+ \PY{n}{meteo\PYZus{}test\PYZus{}path} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Stage DMN/Test\PYZhy{}Equil\PYZhy{}Lon\PYZhy{}Lat\PYZhy{}Hour\PYZhy{}Month\PYZhy{}RedVisi.csv\PYZdq{}}
+ 
+ \PY{c+c1}{\PYZsh{} importer les données de disque au h2o}
+ \PY{n}{meteo\PYZus{}train}\PY{o}{\PYZlt{}\PYZhy{}}\PY{n+nf}{h2o.importFile}\PY{p}{(}\PY{n}{path} \PY{o}{=} \PY{n}{meteo\PYZus{}train\PYZus{}path}\PY{p}{,} 
+               \PY{n}{destination\PYZus{}frame} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{meteo\PYZus{}train.hex\PYZdq{}}\PY{p}{)}
+ \PY{n}{meteo\PYZus{}test}\PY{o}{\PYZlt{}\PYZhy{}}\PY{n+nf}{h2o.importFile}\PY{p}{(}\PY{n}{path} \PY{o}{=} \PY{n}{meteo\PYZus{}test\PYZus{}path}\PY{p}{,} 
+              \PY{n}{destination\PYZus{}frame} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{meteo\PYZus{}test.hex\PYZdq{}}\PY{p}{)}
+ 
+ \PY{c+c1}{\PYZsh{} variable target (Visibilite)}
+ \PY{n}{y.dep} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+m}{35}
+ \PY{c+c1}{\PYZsh{} variables independent}
+ \PY{n}{x.indep} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{c}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{34}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{cruxe9ation-des-fonctions-duxe9valuation}{%
+\subsection{Création des fonctions
+d'évaluation}\label{cruxe9ation-des-fonctions-duxe9valuation}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ \PY{n}{Evaliation} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{function}\PY{p}{(}\PY{n}{model}\PY{p}{)} \PY{p}{\PYZob{}}
+     \PY{n+nf}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}  H2o model : \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZdq{}}\PY{p}{)}
+     \PY{n+nf}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Comparaison de la performance pour les donnée Train \PYZam{} Test\PYZdq{}}\PY{p}{)}
+     \PY{n}{PredTest} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{as.data.frame}\PY{p}{(}\PY{n+nf}{h2o.predict}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{meteo\PYZus{}test}\PY{p}{)}\PY{p}{)}
+     \PY{n}{PredTrain} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{as.data.frame}\PY{p}{(}\PY{n+nf}{h2o.predict}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{meteo\PYZus{}train}\PY{p}{)}\PY{p}{)}
+ 
+     \PY{n}{ActualTrain}\PY{o}{=}\PY{n+nf}{as.data.frame}\PY{p}{(}\PY{n}{meteo\PYZus{}train}\PY{n}{[}\PY{l+s}{\PYZsq{}}\PY{l+s}{Visibilite\PYZsq{}}\PY{n}{]}\PY{p}{)}
+     \PY{n}{ActualTest}\PY{o}{=}\PY{n+nf}{as.data.frame}\PY{p}{(}\PY{n}{meteo\PYZus{}test}\PY{n}{[}\PY{l+s}{\PYZsq{}}\PY{l+s}{Visibilite\PYZsq{}}\PY{n}{]}\PY{p}{)}
+ 
+     \PY{n}{TestbothPA}\PY{o}{=}\PY{n+nf}{cbind}\PY{p}{(}\PY{n}{PredTest}\PY{p}{,}\PY{n}{ActualTest}\PY{p}{)}
+     \PY{n}{BIAS} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{round}\PY{p}{(}\PY{n+nf}{mean}\PY{p}{(}\PY{n}{TestbothPA}\PY{n}{[}\PY{p}{,}\PY{l+m}{1}\PY{n}{]} \PY{o}{\PYZhy{}} \PY{n}{TestbothPA}\PY{n}{[}\PY{p}{,}\PY{l+m}{2}\PY{n}{]}\PY{p}{)}\PY{p}{,}\PY{l+m}{4}\PY{p}{)}
+     \PY{n}{RMSE} \PY{o}{\PYZlt{}\PYZhy{}}  \PY{n+nf}{round}\PY{p}{(}\PY{n+nf}{sqrt}\PY{p}{(}\PY{n+nf}{mean}\PY{p}{(}\PY{p}{(}\PY{n}{TestbothPA}\PY{n}{[}\PY{p}{,}\PY{l+m}{1}\PY{n}{]} \PY{o}{\PYZhy{}} \PY{n}{TestbothPA}\PY{n}{[}\PY{p}{,}\PY{l+m}{2}\PY{n}{]}\PY{p}{)}\PY{n}{\PYZca{}2}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+m}{4}\PY{p}{)}
+     \PY{n}{MAE} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{round}\PY{p}{(}\PY{n+nf}{mean}\PY{p}{(}\PY{n+nf}{abs}\PY{p}{(}\PY{n}{TestbothPA}\PY{n}{[}\PY{p}{,}\PY{l+m}{1}\PY{n}{]} \PY{o}{\PYZhy{}} \PY{n}{TestbothPA}\PY{n}{[}\PY{p}{,}\PY{l+m}{2}\PY{n}{]}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+m}{4}\PY{p}{)}
+     \PY{n}{CC} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{round}\PY{p}{(}\PY{n+nf}{cor}\PY{p}{(}\PY{n}{TestbothPA}\PY{n}{[}\PY{p}{,}\PY{l+m}{1}\PY{n}{]}\PY{p}{,}\PY{n}{TestbothPA}\PY{n}{[}\PY{p}{,}\PY{l+m}{2}\PY{n}{]}\PY{p}{)}\PY{p}{,}\PY{l+m}{4}\PY{p}{)}
+     \PY{n}{set} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Test\PYZdq{}}
+     \PY{n}{errors.test} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{data.frame}\PY{p}{(}\PY{n}{set}\PY{p}{,}\PY{n}{BIAS}\PY{p}{,}\PY{n}{RMSE}\PY{p}{,}\PY{n}{MAE}\PY{p}{,}\PY{n}{CC}\PY{p}{)}
+ 
+     \PY{n}{TrainbothPA}\PY{o}{=}\PY{n+nf}{cbind}\PY{p}{(}\PY{n}{PredTrain}\PY{p}{,}\PY{n}{ActualTrain}\PY{p}{)}
+     \PY{n}{BIAS} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{round}\PY{p}{(}\PY{n+nf}{mean}\PY{p}{(}\PY{n}{TrainbothPA}\PY{n}{[}\PY{p}{,}\PY{l+m}{1}\PY{n}{]} \PY{o}{\PYZhy{}} \PY{n}{TrainbothPA}\PY{n}{[}\PY{p}{,}\PY{l+m}{2}\PY{n}{]}\PY{p}{)}\PY{p}{,}\PY{l+m}{4}\PY{p}{)}
+     \PY{n}{RMSE} \PY{o}{\PYZlt{}\PYZhy{}}  \PY{n+nf}{round}\PY{p}{(}\PY{n+nf}{sqrt}\PY{p}{(}\PY{n+nf}{mean}\PY{p}{(}\PY{p}{(}\PY{n}{TrainbothPA}\PY{n}{[}\PY{p}{,}\PY{l+m}{1}\PY{n}{]} \PY{o}{\PYZhy{}} \PY{n}{TrainbothPA}\PY{n}{[}\PY{p}{,}\PY{l+m}{2}\PY{n}{]}\PY{p}{)}\PY{n}{\PYZca{}2}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+m}{4}\PY{p}{)}
+     \PY{n}{MAE} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{round}\PY{p}{(}\PY{n+nf}{mean}\PY{p}{(}\PY{n+nf}{abs}\PY{p}{(}\PY{n}{TrainbothPA}\PY{n}{[}\PY{p}{,}\PY{l+m}{1}\PY{n}{]} \PY{o}{\PYZhy{}} \PY{n}{TrainbothPA}\PY{n}{[}\PY{p}{,}\PY{l+m}{2}\PY{n}{]}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+m}{4}\PY{p}{)}
+     \PY{n}{CC} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{round}\PY{p}{(}\PY{n+nf}{cor}\PY{p}{(}\PY{n}{TrainbothPA}\PY{n}{[}\PY{p}{,}\PY{l+m}{1}\PY{n}{]}\PY{p}{,}\PY{n}{TrainbothPA}\PY{n}{[}\PY{p}{,}\PY{l+m}{2}\PY{n}{]}\PY{p}{)}\PY{p}{,}\PY{l+m}{4}\PY{p}{)}
+     \PY{n}{set} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Train\PYZdq{}}
+     \PY{n}{errors.train} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{data.frame}\PY{p}{(}\PY{n}{set}\PY{p}{,}\PY{n}{BIAS}\PY{p}{,}\PY{n}{RMSE}\PY{p}{,}\PY{n}{MAE}\PY{p}{,}\PY{n}{CC}\PY{p}{)}
+ 
+     \PY{n}{Eval.metrics}\PY{o}{=}\PY{n+nf}{rbind}\PY{p}{(}\PY{n}{errors.train}\PY{p}{,}\PY{n}{errors.test}\PY{p}{)}
+     \PY{n+nf}{print}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{======================================\PYZsq{}}\PY{p}{)}
+     \PY{n+nf}{print}\PY{p}{(}\PY{n}{Eval.metrics}\PY{p}{)}
+ 
+     \PY{n+nf}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{} H2o model : check variable importance \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZdq{}}\PY{p}{)}
+     \PY{c+c1}{\PYZsh{}check variable importance}
+     \PY{n}{VarImpo} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{h2o.varimp}\PY{p}{(}\PY{n}{model}\PY{p}{)}
+     \PY{c+c1}{\PYZsh{}print(VarImpo)}
+     \PY{n+nf}{h2o.varimp\PYZus{}plot}\PY{p}{(}\PY{n}{model}\PY{p}{)}
+ \PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \hypertarget{muxe9thodes-ensemblistes}{%
+\subsection{1- Méthodes Ensemblistes}\label{muxe9thodes-ensemblistes}}
+
+\hypertarget{random-forest}{%
+\subsection{Random Forest}\label{random-forest}}
+
+\hypertarget{par-duxe9faut}{%
+\subsubsection{Par défaut}\label{par-duxe9faut}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ \PY{c+c1}{\PYZsh{} Création du modèle RF par défauts}
+ \PY{n}{rforest.defaut} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{h2o.randomForest}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{y.dep}\PY{p}{,} 
+     \PY{n}{x}\PY{o}{=}\PY{n}{x.indep}\PY{p}{,} 
+     \PY{n}{training\PYZus{}frame} \PY{o}{=} \PY{n}{meteo\PYZus{}train}\PY{p}{,}
+     \PY{n}{validation\PYZus{}frame} \PY{o}{=} \PY{n}{meteo\PYZus{}test}\PY{p}{,}
+     \PY{n}{model\PYZus{}id}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{rf\PYZus{}defaut\PYZdq{}}\PY{p}{,} 
+     \PY{n}{seed} \PY{o}{=} \PY{l+m}{42}\PY{p}{,} \PY{p}{)}
+ \PY{c+c1}{\PYZsh{} évaluation du modèle}
+ \PY{n+nf}{Evaliation}\PY{p}{(}\PY{n}{rforest.defaut}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{optimisation-des-hyperparamuxe8tres-avec-grid-search-et-random-search}{%
+\subsubsection{Optimisation des hyperparamètres avec Grid Search et
+Random
+Search}\label{optimisation-des-hyperparamuxe8tres-avec-grid-search-et-random-search}}
+
+\textbf{les hyperparamètres les plus importants choisis pour Random
+forest sont:}\\
+* ntrees = nombre d'arbres,\\
+* mtries = le nombre de
+colonnes à sélectionner au hasard à chaque niveau, \\
+* max\_depth =
+profondeur maximale de chaque arbre,\\
+* min\_rows = le nombre minimum
+d'observations pour une feuille,
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ \PY{n}{rf\PYZus{}params} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{list}\PY{p}{(}\PY{n}{ntrees} \PY{o}{=} \PY{n+nf}{seq}\PY{p}{(}\PY{l+m}{50}\PY{p}{,} \PY{l+m}{100}\PY{p}{,} \PY{l+m}{10}\PY{p}{)}\PY{p}{,}
+    \PY{n}{max\PYZus{}depth} \PY{o}{=} \PY{n+nf}{seq}\PY{p}{(}\PY{l+m}{10}\PY{p}{,} \PY{l+m}{17}\PY{p}{,} \PY{l+m}{1}\PY{p}{)}\PY{p}{,}
+    \PY{n}{min\PYZus{}rows}\PY{o}{=} \PY{n+nf}{seq}\PY{p}{(}\PY{l+m}{1}\PY{p}{,} \PY{l+m}{5}\PY{p}{,} \PY{l+m}{1}\PY{p}{)}\PY{p}{,}
+    \PY{n}{mtries} \PY{o}{=} \PY{n+nf}{seq}\PY{p}{(}\PY{l+m}{\PYZhy{}1}\PY{p}{,} \PY{l+m}{3}\PY{p}{,} \PY{l+m}{1}\PY{p}{)}\PY{p}{)}
+ \PY{n}{search\PYZus{}criteria} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{list}\PY{p}{(}\PY{n}{strategy} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{RandomDiscrete\PYZdq{}}\PY{p}{,} 
+    \PY{n}{max\PYZus{}models} \PY{o}{=} \PY{l+m}{100}\PY{p}{)}
+\end{Verbatim}
+
+
+    \textbf{Random Search}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ \PY{n}{rf\PYZus{}RandomDiscrete} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{h2o.grid}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{drf\PYZdq{}}\PY{p}{,}
+                 \PY{n}{y}\PY{o}{=}\PY{n}{y.dep}\PY{p}{,} 
+                 \PY{n}{x}\PY{o}{=}\PY{n}{x.indep}\PY{p}{,}
+                 \PY{n}{grid\PYZus{}id} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{rf\PYZus{}RandomDiscrete\PYZdq{}}\PY{p}{,}
+                 \PY{n}{training\PYZus{}frame} \PY{o}{=} \PY{n}{meteo\PYZus{}train}\PY{p}{,}
+                 \PY{n}{validation\PYZus{}frame} \PY{o}{=} \PY{n}{meteo\PYZus{}test}\PY{p}{,}
+                 \PY{n}{seed} \PY{o}{=} \PY{l+m}{1}\PY{p}{,}
+                \PY{n}{hyper\PYZus{}params} \PY{o}{=} \PY{n}{rf\PYZus{}params}\PY{p}{,}
+                 \PY{n}{search\PYZus{}criteria} \PY{o}{=} \PY{n}{search\PYZus{}criteria}\PY{p}{)}
+ \PY{c+c1}{\PYZsh{} on trie les résultats par mae}
+ \PY{n}{perf\PYZus{}rf\PYZus{}RandomDiscrete} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{h2o.getGrid}\PY{p}{(}\PY{n}{grid\PYZus{}id} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{rf\PYZus{}RandomDiscrete\PYZdq{}}\PY{p}{,} 
+\PY{n}{sort\PYZus{}by} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mae\PYZdq{}}\PY{p}{,} 
+\PY{n}{decreasing} \PY{o}{=} \PY{k+kc}{FALSE}\PY{p}{)}
+ \PY{c+c1}{\PYZsh{} Puis on garder le premier (c\PYZhy{}à\PYZhy{}d qu\PYZsq{}il a le minimum des erreurs)}
+ \PY{n}{rf\PYZus{}RandomDiscrete\PYZus{}selectione} \PY{o}{=} \PY{n+nf}{h2o.getModel}\PY{p}{(}\PY{n}{perf\PYZus{}rf\PYZus{}RandomDiscrete}\PY{o}{@}\PY{n}{model\PYZus{}ids}\PY{n}{[}\PY{n}{[1}\PY{n}{]}\PY{n}{]}\PY{p}{)}
+ \PY{c+c1}{\PYZsh{} et on évaluer le modèle}
+ \PY{n+nf}{Evaliation}\PY{p}{(}\PY{n}{rf\PYZus{}RandomDiscrete\PYZus{}selectione}\PY{p}{)}
+\end{Verbatim}
+
+
+    \textbf{Grid Search}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ \PY{c+c1}{\PYZsh{} gride search et par défauts}
+ \PY{n}{rf\PYZus{}Cartesient} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{h2o.grid}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{drf\PYZdq{}}\PY{p}{,} \PY{n}{x}\PY{o}{=}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{34}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+m}{35}\PY{p}{,}
+              \PY{n}{grid\PYZus{}id} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{rf\PYZus{}Cartesient\PYZdq{}}\PY{p}{,}
+              \PY{n}{training\PYZus{}frame} \PY{o}{=} \PY{n}{meteo\PYZus{}train}\PY{p}{,}
+              \PY{n}{validation\PYZus{}frame} \PY{o}{=} \PY{n}{meteo\PYZus{}test}\PY{p}{,}
+              \PY{n}{seed} \PY{o}{=} \PY{l+m}{1}\PY{p}{,}
+              \PY{n}{hyper\PYZus{}params} \PY{o}{=} \PY{n}{rf\PYZus{}params}\PY{p}{)}
+ \PY{c+c1}{\PYZsh{} on trie les résultats par mae}
+ \PY{n}{perf\PYZus{}rf\PYZus{}Cartesient} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{h2o.getGrid}\PY{p}{(}\PY{n}{grid\PYZus{}id} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{rf\PYZus{}Cartesient\PYZdq{}}\PY{p}{,} 
+                                   \PY{n}{sort\PYZus{}by} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mae\PYZdq{}}\PY{p}{,} 
+                                   \PY{n}{decreasing} \PY{o}{=} \PY{k+kc}{FALSE}\PY{p}{)}
+ \PY{c+c1}{\PYZsh{} Puis on garder le premier (c\PYZhy{}à\PYZhy{}d qu\PYZsq{}il a le minimum des erreurs)}
+ \PY{n}{rf\PYZus{}Cartesient\PYZus{}selectione} \PY{o}{=} \PY{n+nf}{h2o.getModel}\PY{p}{(}\PY{n}{perf\PYZus{}rf\PYZus{}Cartesient}\PY{o}{@}\PY{n}{model\PYZus{}ids}\PY{n}{[}\PY{n}{[1}\PY{n}{]}\PY{n}{]}\PY{p}{)}
+ \PY{c+c1}{\PYZsh{} et on évaluer le modèle}
+ \PY{n+nf}{Evaliation}\PY{p}{(}\PY{n}{rf\PYZus{}Cartesient\PYZus{}selectione}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{gradient-boosting-machine}{%
+\subsection{Gradient Boosting Machine}\label{gradient-boosting-machine}}
+
+\hypertarget{par-duxe9faut}{%
+\subsubsection{Par défaut}\label{par-duxe9faut}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ \PY{n}{gbm.defaut} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{h2o.gbm}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{y.dep}\PY{p}{,} 
+                \PY{n}{x}\PY{o}{=}\PY{n}{x.indep}\PY{p}{,} 
+                \PY{n}{training\PYZus{}frame} \PY{o}{=} \PY{n}{meteo\PYZus{}train}\PY{p}{,}
+                \PY{n}{validation\PYZus{}frame} \PY{o}{=} \PY{n}{meteo\PYZus{}test}\PY{p}{,}
+                \PY{n}{model\PYZus{}id}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{gbm\PYZus{}defaut\PYZdq{}}\PY{p}{,} 
+                \PY{n}{seed} \PY{o}{=} \PY{l+m}{42}\PY{p}{,} \PY{p}{)}
+ \PY{c+c1}{\PYZsh{} évaluation du modèle}
+ \PY{n+nf}{Evaliation}\PY{p}{(}\PY{n}{gbm.defaut}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{optimisation-des-hyperparamuxe8tres-avec-grid-search-et-random-search}{%
+\subsubsection{Optimisation des hyperparamètres avec Grid Search et
+Random
+Search}\label{optimisation-des-hyperparamuxe8tres-avec-grid-search-et-random-search}}
+
+\textbf{les hyperparamètres les plus importants choisis pour Gradient
+Boosting Machine sont:} * ntrees = nombre d'arbres, * max\_depth =
+profondeur maximale de chaque arbre, * sample\_rate = spécifier le taux
+d'échantillonnage de la ligne (sans remplacement). * min\_rows = le
+nombre minimum d'observations pour une feuille, * learn\_rate = taux
+d'apprentissage
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ \PY{n}{gbm\PYZus{}params} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{list}\PY{p}{(}\PY{n}{ntrees} \PY{o}{=} \PY{n+nf}{seq}\PY{p}{(}\PY{l+m}{200}\PY{p}{,} \PY{l+m}{400} \PY{p}{,} \PY{l+m}{50}\PY{p}{)}\PY{p}{,}
+\PY{n}{max\PYZus{}depth} \PY{o}{=} \PY{n+nf}{seq}\PY{p}{(}\PY{l+m}{11}\PY{p}{,} \PY{l+m}{17}\PY{p}{,} \PY{l+m}{2}\PY{p}{)}\PY{p}{,}
+\PY{n}{sample\PYZus{}rate} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{l+m}{0.5}\PY{p}{,} \PY{l+m}{0.8}\PY{p}{,} \PY{l+m}{0.95}\PY{p}{,} \PY{l+m}{1.0}\PY{p}{)}\PY{p}{,}
+\PY{n}{min\PYZus{}rows} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{l+m}{2}\PY{p}{,} \PY{l+m}{5}\PY{p}{,} \PY{l+m}{10}\PY{p}{)}\PY{p}{,}
+\PY{n}{learn\PYZus{}rate} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{l+m}{0.1}\PY{p}{)}\PY{p}{)}
+ \PY{n}{search\PYZus{}criteria} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{list}\PY{p}{(}\PY{n}{strategy} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{RandomDiscrete\PYZdq{}}\PY{p}{,} 
+    \PY{n}{max\PYZus{}models} \PY{o}{=} \PY{l+m}{100}\PY{p}{)}
+\end{Verbatim}
+
+
+    \textbf{Random Search}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ \PY{n}{gbm\PYZus{}RandomDiscrete} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{h2o.grid}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{gbm\PYZdq{}}\PY{p}{,} \PY{n}{x}\PY{o}{=}\PY{n}{x.indep}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y.dep}\PY{p}{,}
+  \PY{n}{grid\PYZus{}id} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{gbm\PYZus{}RandomDiscrete\PYZdq{}}\PY{p}{,}
+  \PY{n}{training\PYZus{}frame} \PY{o}{=} \PY{n}{meteo\PYZus{}train}\PY{p}{,}
+  \PY{n}{validation\PYZus{}frame} \PY{o}{=} \PY{n}{meteo\PYZus{}test}\PY{p}{,}
+  \PY{n}{seed} \PY{o}{=} \PY{l+m}{1}\PY{p}{,}
+  \PY{n}{hyper\PYZus{}params} \PY{o}{=} \PY{n}{gbm\PYZus{}params}\PY{p}{,}
+  \PY{n}{search\PYZus{}criteria} \PY{o}{=} \PY{n}{search\PYZus{}criteria}\PY{p}{,}
+  \PY{n}{stopping\PYZus{}tolerance} \PY{o}{=} \PY{l+m}{0.001}\PY{p}{,}
+  \PY{n}{stopping\PYZus{}rounds}\PY{o}{=}\PY{l+m}{3}\PY{p}{,}
+  \PY{n}{score\PYZus{}tree\PYZus{}interval} \PY{o}{=} \PY{l+m}{10} \PY{p}{)}
+ \PY{c+c1}{\PYZsh{} on trie les résultats par mae}
+ \PY{n}{perf\PYZus{}gbm\PYZus{}RandomDiscrete} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{h2o.getGrid}\PY{p}{(}\PY{n}{grid\PYZus{}id} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{gbm\PYZus{}RandomDiscrete\PYZdq{}}\PY{p}{,} 
+  \PY{n}{sort\PYZus{}by} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mae\PYZdq{}}\PY{p}{,} 
+  \PY{n}{decreasing} \PY{o}{=} \PY{k+kc}{FALSE}\PY{p}{)}
+ \PY{c+c1}{\PYZsh{} Puis on garder le premier (c\PYZhy{}à\PYZhy{}d qu\PYZsq{}il a le minimum des erreurs)}
+ \PY{n}{gbm\PYZus{}gs\PYZus{}selected}\PY{o}{=}\PY{n+nf}{h2o.getModel}\PY{p}{(}\PY{n}{perf\PYZus{}gbm\PYZus{}RandomDiscrete}\PY{o}{@}\PY{n}{model\PYZus{}ids}\PY{n}{[}\PY{n}{[1}\PY{n}{]}\PY{n}{]}\PY{p}{)}
+ \PY{c+c1}{\PYZsh{} et on évaluer le modèle}
+ \PY{n+nf}{Evaliation}\PY{p}{(}\PY{n}{gbm\PYZus{}gs\PYZus{}selected}\PY{p}{)}
+\end{Verbatim}
+
+
+    \textbf{Grid Search}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ \PY{c+c1}{\PYZsh{} Train and validate a grid of GBM}
+ \PY{n}{gbm\PYZus{}cartesien}\PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{h2o.grid}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{gbm\PYZdq{}}\PY{p}{,} \PY{n}{x}\PY{o}{=}\PY{n}{x.indep}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y.dep}\PY{p}{,}
+  \PY{n}{grid\PYZus{}id} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{gbm\PYZus{}cartesien\PYZdq{}}\PY{p}{,}
+  \PY{n}{training\PYZus{}frame} \PY{o}{=} \PY{n}{meteo\PYZus{}train}\PY{p}{,}
+  \PY{n}{validation\PYZus{}frame} \PY{o}{=} \PY{n}{meteo\PYZus{}test}\PY{p}{,}
+  \PY{n}{seed} \PY{o}{=} \PY{l+m}{1}\PY{p}{,}
+  \PY{n}{hyper\PYZus{}params} \PY{o}{=} \PY{n}{gbm\PYZus{}params}\PY{p}{)}
+ \PY{c+c1}{\PYZsh{} on trie les résultats par mae}
+ \PY{n}{perf\PYZus{}gbm\PYZus{}cartesien} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{h2o.getGrid}\PY{p}{(}\PY{n}{grid\PYZus{}id} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{gbm\PYZus{}cartesien\PYZdq{}}\PY{p}{,} 
+  \PY{n}{sort\PYZus{}by} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mae\PYZdq{}}\PY{p}{,} 
+  \PY{n}{decreasing} \PY{o}{=} \PY{k+kc}{FALSE}\PY{p}{)}
+ \PY{c+c1}{\PYZsh{} Puis on garder le premier (c\PYZhy{}à\PYZhy{}d qu\PYZsq{}il a le minimum des erreurs)}
+ \PY{n}{gbm\PYZus{}cartesien}\PY{o}{=}\PY{n+nf}{h2o.getModel}\PY{p}{(}\PY{n}{perf\PYZus{}gbm\PYZus{}random\PYZus{}search}\PY{o}{@}\PY{n}{model\PYZus{}ids}\PY{n}{[}\PY{n}{[1}\PY{n}{]}\PY{n}{]}\PY{p}{)}
+ \PY{c+c1}{\PYZsh{} et on évaluer le modèle}
+ \PY{n+nf}{Evaliation}\PY{p}{(}\PY{n}{gbm\PYZus{}cartesien}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{extrem-gradient-boosting}{%
+\subsection{eXtrem Gradient Boosting}\label{extrem-gradient-boosting}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ \PY{c+c1}{\PYZsh{} Pour xgboost nous avons le développé dans une autre machine}
+ \PY{c+c1}{\PYZsh{} pour cela nous avons lancé h2o dans une machine }
+ \PY{c+c1}{\PYZsh{} Puis nous avons fait l\PYZsq{}accé a cette machine via l\PYZsq{}adresse IP}
+ \PY{n+nf}{library}\PY{p}{(}\PY{n}{h2o}\PY{p}{)}
+ \PY{c+c1}{\PYZsh{}Start H2O }
+ \PY{n+nf}{h2o.init}\PY{p}{(}
+   \PY{n}{ip} \PY{o}{=} \PY{l+m}{192.168}\PY{l+m}{.132}\PY{l+m}{.128}\PY{p}{,}
+   \PY{n}{port} \PY{o}{=} \PY{l+m}{54321}\PY{p}{,}
+   \PY{n}{nthreads} \PY{o}{=} \PY{l+m}{\PYZhy{}1}\PY{p}{,}     
+   \PY{n}{max\PYZus{}mem\PYZus{}size} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{8g\PYZdq{}} 
+ \PY{p}{)}
+ \PY{n+nf}{h2o.removeAll}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ \PY{c+c1}{\PYZsh{} les chemines des deux fichiers de données }
+ \PY{n}{meteo\PYZus{}train\PYZus{}path} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{C:/Users/Stage DMN/Train\PYZhy{}Equil\PYZhy{}Lon\PYZhy{}Lat\PYZhy{}Hour\PYZhy{}Month\PYZhy{}RedVisi.csv\PYZdq{}}
+ \PY{n}{meteo\PYZus{}test\PYZus{}path} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{C:/Users/Stage DMN/Test\PYZhy{}Equil\PYZhy{}Lon\PYZhy{}Lat\PYZhy{}Hour\PYZhy{}Month\PYZhy{}RedVisi.csv\PYZdq{}}
+ 
+ \PY{c+c1}{\PYZsh{} puisque nous avons lancé h2o dans une autre machine }
+ \PY{c+c1}{\PYZsh{} ici nous avons utilisé uploadFile au lieu d\PYZsq{}importFile}
+ \PY{n}{meteo\PYZus{}train}\PY{o}{\PYZlt{}\PYZhy{}}\PY{n+nf}{h2o.uploadFile}\PY{p}{(}\PY{n}{path} \PY{o}{=} \PY{n}{meteo\PYZus{}train\PYZus{}path}\PY{p}{,} 
+ \PY{n}{destination\PYZus{}frame} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{meteo\PYZus{}train.hex\PYZdq{}}\PY{p}{)}
+ \PY{n}{meteo\PYZus{}test}\PY{o}{\PYZlt{}\PYZhy{}}\PY{n+nf}{h2o.uploadFile}\PY{p}{(}\PY{n}{path} \PY{o}{=} \PY{n}{meteo\PYZus{}test\PYZus{}path}\PY{p}{,} 
+\PY{n}{destination\PYZus{}frame} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{meteo\PYZus{}test.hex\PYZdq{}}\PY{p}{)}
+ 
+ \PY{c+c1}{\PYZsh{} variable target (Visibilite)}
+ \PY{n}{y.dep} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+m}{35}
+ \PY{c+c1}{\PYZsh{} variables independents}
+ \PY{n}{x.indep} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{c}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{34}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{par-duxe9faut}{%
+\subsubsection{Par défaut}\label{par-duxe9faut}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ \PY{n}{xgb.defaut}\PY{o}{\PYZlt{}\PYZhy{}}\PY{n+nf}{h2o.xgboost}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{y.dep}\PY{p}{,} 
+  \PY{n}{x}\PY{o}{=}\PY{n}{x.indep}\PY{p}{,} 
+  \PY{n}{training\PYZus{}frame} \PY{o}{=}\PY{n}{train}\PY{p}{,}
+  \PY{n}{validation\PYZus{}frame}\PY{o}{=}\PY{n}{test}\PY{p}{,}
+  \PY{n}{model\PYZus{}id}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{Xgboost\PYZus{}defaut\PYZdq{}}\PY{p}{,}
+  \PY{n}{seed} \PY{o}{=} \PY{l+m}{1}\PY{p}{)}
+ \PY{c+c1}{\PYZsh{} évaluation du modèle}
+ \PY{n+nf}{Evaliation}\PY{p}{(}\PY{n}{xgb.defaut}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{optimisation-des-hyperparamuxe8tres-avec-grid-search-et-random-search}{%
+\subsubsection{Optimisation des hyperparamètres avec Grid Search et
+Random
+Search}\label{optimisation-des-hyperparamuxe8tres-avec-grid-search-et-random-search}}
+
+\textbf{les hyperparamètres les plus importants choisis pour Gradient
+Boosting Machine sont:} * max\_depth = profondeur maximale de chaque
+arbre * min\_rows = le nombre minimum d'observations pour une feuille, *
+sample\_rate = spécifier le taux d'échantillonnage de la ligne (axe des
+x) (sans remplacement). * col\_sample\_rate et
+col\_sample\_rate\_per\_tree
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ \PY{n}{xgb\PYZus{}params} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{list}\PY{p}{(}\PY{n}{max\PYZus{}depth} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{l+m}{5}\PY{p}{,} \PY{l+m}{10}\PY{p}{,} \PY{l+m}{17}\PY{p}{)}\PY{p}{,}
+   \PY{n}{min\PYZus{}rows} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{l+m}{2}\PY{p}{,} \PY{l+m}{5}\PY{p}{,} \PY{l+m}{11}\PY{p}{)}\PY{p}{,}
+   \PY{n}{sample\PYZus{}rate} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{l+m}{0.5}\PY{p}{,} \PY{l+m}{0.8}\PY{p}{,} \PY{l+m}{0.95}\PY{p}{,} \PY{l+m}{1.0}\PY{p}{)}\PY{p}{,}
+   \PY{n}{col\PYZus{}sample\PYZus{}rate} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{l+m}{0.5}\PY{p}{,} \PY{l+m}{0.8}\PY{p}{,} \PY{l+m}{0.95}\PY{p}{,} \PY{l+m}{1.0}\PY{p}{)}\PY{p}{,}
+   \PY{n}{col\PYZus{}sample\PYZus{}rate\PYZus{}per\PYZus{}tree} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{l+m}{0.8}\PY{p}{,} \PY{l+m}{0.99}\PY{p}{,} \PY{l+m}{1.0}\PY{p}{)}\PY{p}{)}
+ \PY{n}{xgb\PYZus{}search\PYZus{}criteria} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{list}\PY{p}{(}\PY{n}{strategy} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{RandomDiscrete\PYZdq{}}\PY{p}{,}\PY{p}{)}
+\end{Verbatim}
+
+
+    \textbf{Random Search}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ \PY{n}{xgb\PYZus{}RandomDiscrete} \PY{o}{=} \PY{n+nf}{h2o.grid}\PY{p}{(}\PY{n}{grid\PYZus{}id} \PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{xgb\PYZus{}randomDiscrete\PYZdq{}}\PY{p}{,}
+\PY{n}{x}\PY{o}{=}\PY{n}{x.indep}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y.dep}\PY{p}{,}
+\PY{n}{hyper\PYZus{}params} \PY{o}{=} \PY{n}{xgb\PYZus{}params}\PY{p}{,}
+\PY{n}{search\PYZus{}criteria} \PY{o}{=} \PY{n}{xgb\PYZus{}search\PYZus{}criteria}\PY{p}{,}
+\PY{n}{training\PYZus{}frame} \PY{o}{=} \PY{n}{meteo\PYZus{}train}\PY{p}{,}
+\PY{n}{validation\PYZus{}frame} \PY{o}{=} \PY{n}{meteo\PYZus{}test}\PY{p}{,}
+      
+\PY{n}{stopping\PYZus{}tolerance} \PY{o}{=} \PY{l+m}{0.001}\PY{p}{,}
+\PY{n}{stopping\PYZus{}rounds}\PY{o}{=}\PY{l+m}{3}\PY{p}{,}
+\PY{n}{score\PYZus{}tree\PYZus{}interval} \PY{o}{=} \PY{l+m}{10}\PY{p}{,}
+\PY{n}{ntrees} \PY{o}{=} \PY{l+m}{400}\PY{p}{)} 
+ \PY{c+c1}{\PYZsh{} on trie les résultats par mae}
+ \PY{n}{xgb\PYZus{}perf\PYZus{}RandomDiscrete} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{h2o.getGrid}\PY{p}{(}\PY{n}{grid\PYZus{}id} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{xgb\PYZus{}randomDiscrete\PYZdq{}}\PY{p}{,} 
+  \PY{n}{sort\PYZus{}by} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mae\PYZdq{}}\PY{p}{,} 
+  \PY{n}{decreasing} \PY{o}{=} \PY{k+kc}{FALSE}\PY{p}{)}
+ \PY{c+c1}{\PYZsh{} Puis on garder le premier (c\PYZhy{}à\PYZhy{}d qu\PYZsq{}il a le minimum des erreurs)}
+ \PY{n}{RS\PYZus{}xgb} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{h2o.getModel}\PY{p}{(}\PY{n}{xgb\PYZus{}perf\PYZus{}RandomDiscrete}\PY{o}{@}\PY{n}{model\PYZus{}ids}\PY{n}{[}\PY{n}{[1}\PY{n}{]}\PY{n}{]}\PY{p}{)}
+ \PY{c+c1}{\PYZsh{} évaluation du modèle}
+ \PY{n+nf}{Evaliation}\PY{p}{(}\PY{n}{RS\PYZus{}xgb}\PY{p}{)}
+\end{Verbatim}
+
+
+    \textbf{Grid Search}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ \PY{n}{xgb\PYZus{}cartesien} \PY{o}{=} \PY{n+nf}{h2o.grid}\PY{p}{(}\PY{n}{grid\PYZus{}id} \PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{xgb\PYZus{}cartesien\PYZdq{}}\PY{p}{,}
+\PY{n}{x}\PY{o}{=}\PY{n}{x.indep}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y.dep}\PY{p}{,}
+\PY{n}{hyper\PYZus{}params} \PY{o}{=} \PY{n}{xgb\PYZus{}params}\PY{p}{,}
+\PY{n}{training\PYZus{}frame} \PY{o}{=} \PY{n}{meteo\PYZus{}train}\PY{p}{,}
+\PY{n}{validation\PYZus{}frame} \PY{o}{=} \PY{n}{meteo\PYZus{}test}\PY{p}{,}
+      
+\PY{n}{stopping\PYZus{}tolerance} \PY{o}{=} \PY{l+m}{0.001}\PY{p}{,}
+\PY{n}{stopping\PYZus{}rounds}\PY{o}{=}\PY{l+m}{3}\PY{p}{,}
+\PY{n}{score\PYZus{}tree\PYZus{}interval} \PY{o}{=} \PY{l+m}{10}\PY{p}{,}
+\PY{n}{ntrees} \PY{o}{=} \PY{l+m}{400}\PY{p}{)} 
+ \PY{c+c1}{\PYZsh{} on trie les résultats par mae}
+ \PY{n}{xgb\PYZus{}perf\PYZus{}cartesien} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{h2o.getGrid}\PY{p}{(}\PY{n}{grid\PYZus{}id} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{xgb\PYZus{}cartesien\PYZdq{}}\PY{p}{,} 
+  \PY{n}{sort\PYZus{}by} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mae\PYZdq{}}\PY{p}{,} 
+  \PY{n}{decreasing} \PY{o}{=} \PY{k+kc}{FALSE}\PY{p}{)}
+ \PY{c+c1}{\PYZsh{} Puis on garder le premier (c\PYZhy{}à\PYZhy{}d qu\PYZsq{}il a le minimum des erreurs)}
+ \PY{n}{GS\PYZus{}xgb} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{h2o.getModel}\PY{p}{(}\PY{n}{xgb\PYZus{}perf\PYZus{}cartesien}\PY{o}{@}\PY{n}{model\PYZus{}ids}\PY{n}{[}\PY{n}{[1}\PY{n}{]}\PY{n}{]}\PY{p}{)}
+ \PY{c+c1}{\PYZsh{} évaluation du modèle}
+ \PY{n+nf}{Evaliation}\PY{p}{(}\PY{n}{GS\PYZus{}xgb}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{apprentissage-profond}{%
+\subsection{2- Apprentissage profond}\label{apprentissage-profond}}
+
+\hypertarget{par-duxe9faut}{%
+\subsubsection{Par défaut}\label{par-duxe9faut}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ \PY{n}{dlearning.defaut} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{h2o.deeplearning}\PY{p}{(}\PY{n}{model\PYZus{}id}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{dlearning\PYZus{}defaut\PYZdq{}}\PY{p}{,}
+   \PY{n}{x}\PY{o}{=}\PY{n}{x.indep}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y.dep}\PY{p}{,}
+     \PY{n}{training\PYZus{}frame} \PY{o}{=}\PY{n}{meteo\PYZus{}train}\PY{p}{,} 
+     \PY{n}{validation\PYZus{}frame} \PY{o}{=} \PY{n}{meteo\PYZus{}test}\PY{p}{,}
+     \PY{n}{model\PYZus{}id}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{dlearning\PYZus{}defaut\PYZdq{}}\PY{p}{,} \PY{p}{)}
+ \PY{c+c1}{\PYZsh{} évaluation du modèle}
+ \PY{n+nf}{Evalution}\PY{p}{(}\PY{n}{dlearning.defaut}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{manuellement}{%
+\subsubsection{Manuellement}\label{manuellement}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ \PY{n}{dlearning\PYZus{}manuel} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{h2o.deeplearning}\PY{p}{(}\PY{n}{model\PYZus{}id}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{dlearning\PYZus{}manuel\PYZdq{}}\PY{p}{,}
+   \PY{n}{x}\PY{o}{=}\PY{n}{x.indep}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y.dep}\PY{p}{,}
+     \PY{n}{training\PYZus{}frame} \PY{o}{=}\PY{n}{meteo\PYZus{}train}\PY{p}{,} 
+     \PY{n}{validation\PYZus{}frame} \PY{o}{=} \PY{n}{meteo\PYZus{}test}\PY{p}{,}
+     \PY{n}{epoch} \PY{o}{=} \PY{l+m}{100}\PY{p}{,}
+     \PY{n}{hidden} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{l+m}{68}\PY{p}{,}\PY{l+m}{68}\PY{p}{)}\PY{p}{,} \PY{c+c1}{\PYZsh{} 2 couches cachées}
+     \PY{n}{activation} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{Rectifier\PYZdq{}}\PY{p}{,} \PY{p}{)}
+ \PY{c+c1}{\PYZsh{} évaluation du modèle}
+ \PY{n+nf}{Evaliation}\PY{p}{(}\PY{n}{dlearning\PYZus{}manuel}\PY{p}{)}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

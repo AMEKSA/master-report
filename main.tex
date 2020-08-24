@@ -1,0 +1,282 @@
+\documentclass[a4paper,twoside,12pt]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{wrapfig}
+\usepackage{graphicx}
+\usepackage{lscape}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{lmodern}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{tocbibind}
+\usepackage[round,colon,authoryear]{natbib}
+\def\bibfont{\small}
+\bibpunct{(}{)}{,}{a}{}{}
+\usepackage{url}
+\usepackage[font=footnotesize,format=plain,labelfont=bf,up,textfont=up]{caption}
+\usepackage[top=3.5cm,bottom=3cm,left=3.2cm,right=3.2cm,headsep=1.2cm,footnotesep=1.2cm]{geometry}
+\usepackage[plainpages=false,backref,bookmarks=true,hypertexnames=false,colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue]{hyperref}
+\usepackage{bookmark}
+\bookmarksetup{startatroot}
+\usepackage{minitoc}
+\usepackage[french]{babel}
+\usepackage{tcolorbox}
+\usepackage{subfig}
+\usepackage{pifont}
+\usepackage{hyperref}
+\usepackage{multirow}
+\usepackage{gensymb}
+\usepackage{pdflscape}
+\usepackage[final]{pdfpages}
+\usepackage{xcolor}
+\usepackage{threeparttable}
+\usepackage{arabtex}
+
+%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% rules, no headings
+\fancypagestyle{fancyempty}{
+    \fancyhf{}
+    \fancyhead[LE,RO]{\bfseries\thepage}
+    \fancyhead[LO]{}
+    \fancyhead[RE]{}
+    \addtolength{\headheight}{0.5pt}}
+% empty
+\fancypagestyle{empty}{
+    \fancyhead{}\renewcommand{\headrulewidth}{0pt}}
+% full headings
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markboth{\ #1}}
+%\renewcommand{\sectionmark}[1]{\markright{\ #1}}
+\renewcommand{\chaptermark}[1]{\markright{\ #1}}
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyhead[LE,RO]{\bfseries\thepage}
+    \fancyhead[LO]{\nouppercase\rightmark}
+    \fancyhead[RE]{\nouppercase\rightmark}
+    %\fancyhead[RE]{\nouppercase\leftmark}
+    \addtolength{\headheight}{0.5pt}}
+
+% MARGINS
+\titlespacing*{\chapter}{0pt}{-40pt}{20pt}
+\titleformat{\chapter}[display]{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{30pt}{\Huge}
+\titleformat{\paragraph}[display]{\normalfont\itshape}{\paragraphtitlename\ \theparagraph}{}{}
+
+% CHAPTER HEADINGS
+\makeatletter
+\def\thickhrulefill{\leavevmode \leaders \hrule height 1ex \hfill \kern \z@}
+\def\@makechapterhead#1{%
+  \reset@font
+  \parindent \z@
+  \vspace*{5\p@}%
+  \hbox{%
+    % BOX
+    \vbox{\hsize=2.5cm
+      \begin{tabular}{c}
+        \scshape \strut \@chapapp{} \\
+        \fbox{%
+          \vrule depth 3em height 4em width 0pt%
+          \vrule height 0pt depth 0pt width 2ex%
+          {\fontsize{48}{0}\selectfont \bfseries \strut \thechapter}%
+          \vrule height 0pt depth 0pt width 1ex%
+          }
+      \end{tabular}%
+      }%
+    % CHAPTER TITLE
+    \vbox{%
+      \advance\hsize by -2.5cm
+      \hrule\par
+      \vskip 5pt%
+      \flushright
+      \huge \bfseries #1
+      \vskip 5pt%
+      \hrule\par
+      }%
+    }%
+  \vskip 10\p@
+  \setlength{\parindent}{18pt}
+}
+% CHAPTER*
+\def\@makeschapterhead#1{%
+  \reset@font
+  \parindent \z@
+  \vspace*{10\p@}%
+  \hbox{%
+    \vbox{%
+      \hrule\par
+      \vskip 10pt%
+      \flushright
+      \huge \bfseries #1
+      \vskip 10pt%
+      \hrule\par
+      }%
+    }%
+  \vskip 50\p@
+  \setlength{\parindent}{18pt}
+}
+% PART
+\newcommand\newpart[1]{
+% ============
+\part*{#1}
+}
+\def\@spart#1{%
+% ============
+\thispagestyle{fancyempty}
+\vspace*{100\p@}
+\hbox{
+\vbox{
+  % \hrule\par
+  \vskip 10pt
+  \flushright
+  \fontsize{36}{0} \bfseries {#1}
+  \vskip 8pt
+  \hrule\par }
+}
+\vskip 50\p@
+\adjustmtc
+\mtcaddpart[#1]
+}
+
+% CHAPTER ABSTRACT
+\def\chapterabstract#1{
+    % ABSTRACT
+    {\noindent\large \bfseries Inroduction}
+    \vspace{0.2cm}
+    \hrule
+    \vspace{0.3cm}
+    \noindent\textit{#1}
+    \vspace{0.3cm}
+    \hrule
+    \vspace{0.5cm}
+    \minitoc
+    \newpage
+}
+\makeatother
+
+% Problème de césure des mots
+\tolerance=1
+\emergencystretch=\maxdimen
+\hyphenpenalty=10000
+\hbadness=10000
+
+
+% BEGIN DOCUMENT
+\begin{document}
+\frontmatter
+\pagestyle{fancyempty}
+
+ \title{The Title}
+ \author{Mohammed AMEKSA}
+
+
+
+\begin{titlepage}
+\includepdf[pages=-]{pageDeGard/pageDeGardRec.pdf}
+\includepdf[pages=-]{pageDeGard/pageDeGardVers.pdf}
+\end{titlepage}
+
+\thispagestyle{empty}
+
+\newpage
+
+% PREAMBULE
+\dominitoc
+
+
+
+\setcounter{page}{1}
+\input{didicace}
+\let\cleardoublepage\clearpage
+\input{Remerciements}
+\let\cleardoublepage\clearpage
+\input{abstract_fr}
+\let\cleardoublepage\clearpage
+\input{Abstract}
+\let\cleardoublepage\clearpage
+\newpage
+\mtcaddchapter[Résumé en arabe]
+\includegraphics[width=14cm]{img/abstract_ar.png}
+\let\cleardoublepage\clearpage
+\input{abreviations}
+\let\cleardoublepage\clearpage
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{2}
+\markboth{}{}
+\tableofcontents
+\markboth{}{}
+
+\listoffigures
+\let\cleardoublepage\clearpage
+\listoftables
+\let\cleardoublepage\clearpage
+
+
+% INTRODUCTION
+\mainmatter
+
+\markboth{}{}
+\setcounter{mtc}{9}
+\input{Introduction.tex}
+
+
+\newpage
+\markboth{}{}
+\setcounter{mtc}{10}
+\input{Methodologie.tex}
+
+
+\newpage
+\markboth{}{}
+\setcounter{mtc}{11}
+\input{dataprepation.tex}
+
+
+\newpage
+\markboth{}{}
+\setcounter{mtc}{12}
+\input{Modelisation.tex}
+
+\newpage
+\setcounter{mtc}{13}
+\input{evaluation.tex}
+
+
+\newpage
+\input{conclusion.tex}
+
+\markboth{}{}
+\newpart{Annexes}
+\markboth{Annexes}{Annexes}
+\appendix
+
+
+\chapter{Code source des algorithmes développés sous Scikit-learn}
+\includepdf[pages=-]{Annex/Scikit.pdf}
+
+\chapter{Code source des algorithmes développés sous H2O}
+\includepdf[pages=-]{Annex/H2O.pdf}
+
+\chapter{Code source de l'algorithme Deep Learning sous Keras}
+\includepdf[pages=-]{Annex/keras.pdf}
+
+\chapter{L'éxécution de l'algorithme Random Forest sous WEKA}
+\includepdf[pages=-]{Annex/WEKA.pdf}
+
+
+%BIBLIOGRAPHY
+\backmatter
+\cleardoublepage
+%\thispagestyle{plain}
+\adjustmtc
+
+%\bibliographystyle{apalike}
+\bibliographystyle{plainnat}
+\bibliography{biblio.bib} 
+\end{document}
